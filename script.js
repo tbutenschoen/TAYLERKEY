@@ -5,13 +5,40 @@
 // envelope
 // gain
 
-const audioCtx = new AudioContext();
-const currentTime = Date.now();
+import Voice from "./Voice.js";
 
-const masterGain = audioCtx.createGain();
-masterGain.connect(audioCtx.destination);
+const audioCtx = new AudioContext();
 
 let source;
+
+const activeVoices = {};
+
+const masterGain = audioCtx.createGain();
+masterGain.gain.value = 0.2;
+masterGain.connect(audioCtx.destination);
+
+const loadAudio = async function (filename) {
+  const file = await fetch(filename);
+  const arrayBuffer = await file.arrayBuffer();
+  const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+  source = audioCtx.createBufferSource();
+  source.buffer = audioBuffer;
+};
+
+const playAudio = function (note) {
+  if (!activeVoices[note]) {
+    let someVoice = new Voice(audioCtx, masterGain);
+    activeVoices[note] = someVoice;
+    activeVoices[note].start();
+  }
+};
+
+const stopAudio = function (note) {
+  if (activeVoices[note]) {
+    activeVoices[note].stop();
+    delete activeVoices[note];
+  }
+};
 
 const updateGain = function (event) {
   let sliderValue = document.getElementById("gain").value;
@@ -20,20 +47,6 @@ const updateGain = function (event) {
     sliderValue,
     audioCtx.currentTime + 0.01
   );
-};
-
-const loadAudio = async function (filename) {
-  const file = await fetch(filename);
-  const arrayBuffer = await file.arrayBuffer();
-  const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-  source = audioCtx.createBufferSource();
-  source.buffer = audioBuffer;
-  source.connect(masterGain);
-  source.start();
-};
-
-const stopAudio = function () {
-  source.stop();
 };
 
 const noteMap = {
@@ -54,6 +67,7 @@ const noteMap = {
 document.addEventListener("keydown", (e) => {
   if (noteMap[e.key]) {
     loadAudio(noteMap[e.key]);
+    playAudio(noteMap[e.key]);
     console.log(e.key);
   }
 });
