@@ -22,8 +22,8 @@ const updateGain = function (event) {
   );
 };
 
-const loadAudio = async function () {
-  const file = await fetch(noteMap.d);
+const loadAudio = async function (filename) {
+  const file = await fetch(filename);
   const arrayBuffer = await file.arrayBuffer();
   const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
   source = audioCtx.createBufferSource();
@@ -54,6 +54,7 @@ const noteMap = {
 document.addEventListener("keydown", (e) => {
   if (noteMap[e.key]) {
     loadAudio(noteMap[e.key]);
+    console.log(e.key);
   }
 });
 
