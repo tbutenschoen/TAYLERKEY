@@ -40,7 +40,7 @@ const stopAudio = function (note) {
   }
 };
 
-const updateGain = function (event) {
+const updateGain = function () {
   let sliderValue = document.getElementById("gain").value;
   sliderValue = parseFloat(sliderValue);
   masterGain.gain.linearRampToValueAtTime(

@@ -7,11 +7,12 @@ export default class Voice {
     this.decay = 0.01;
     this.sustain = 0.8;
     this.release = 0.4;
+    this.Amp = 1;
   }
 
   start() {
     const now = this.context.currentTime;
-    this.source = this.context.createSource();
+    this.source = this.context.createBufferSource();
     this.source.onended = this.dispose.bind(this);
 
     this.ampEnv = this.context.createGain();
@@ -22,9 +23,9 @@ export default class Voice {
 
     this.source.start();
 
-    this.ampEnv.gain.linearRampToValueAtTime(this.maxAmp, now + this.attack);
+    this.ampEnv.gain.linearRampToValueAtTime(this.Amp, now + this.attack);
     this.ampEnv.gain.linearRampToValueAtTime(
-      this.sustain * this.maxAmp,
+      this.sustain * this.Amp,
       now + this.attack + this.decay
     );
   }
