@@ -1,10 +1,3 @@
-// import recordings
-// class for recordings?
-// attach recordings to keys
-// buffer
-// envelope
-// gain
-
 import Voice from "./Voice.js";
 
 const audioCtx = new AudioContext();
@@ -25,18 +18,19 @@ const loadAudio = async function (filename) {
   source.buffer = audioBuffer;
 };
 
-const playAudio = function (note) {
-  if (!activeVoices[note]) {
+const playAudio = function (filename) {
+  if (!activeVoices[filename]) {
     let someVoice = new Voice(audioCtx, masterGain);
-    activeVoices[note] = someVoice;
-    activeVoices[note].start();
+    activeVoices[filename] = someVoice;
+    loadAudio(filename);
+    activeVoices[filename].start();
   }
 };
 
-const stopAudio = function (note) {
-  if (activeVoices[note]) {
-    activeVoices[note].stop();
-    delete activeVoices[note];
+const stopAudio = function (filename) {
+  if (activeVoices[filename]) {
+    activeVoices[filename].stop();
+    delete activeVoices[filename];
   }
 };
 
@@ -50,7 +44,7 @@ const updateGain = function () {
 };
 
 const noteMap = {
-  a: "ooh.wav",
+  a: "taylerkeyboard oohA.wav",
   s: "ooh-pitchII_01.wav",
   d: "ooh-pitchII_02.wav",
   f: "ooh-pitchII_03.wav",
@@ -83,3 +77,12 @@ document.addEventListener("keyup", (e) => {
 });
 
 document.getElementById("gain").addEventListener("input", updateGain);
+
+document.getElementById("c").addEventListener("click", playAudio);
+document.getElementById("d").addEventListener("click", playAudio);
+document.getElementById("e").addEventListener("click", playAudio);
+document.getElementById("f").addEventListener("click", playAudio);
+document.getElementById("g").addEventListener("click", playAudio);
+document.getElementById("a").addEventListener("click", playAudio);
+document.getElementById("b").addEventListener("click", playAudio);
+document.getElementById("C").addEventListener("click", playAudio);
