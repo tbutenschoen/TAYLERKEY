@@ -76,13 +76,16 @@ document.addEventListener("keyup", (e) => {
   }
 });
 
-document.getElementById("gain").addEventListener("input", updateGain);
+document.addEventListener("mousedown", (e) => {
+  if (noteMap[e.key]) {
+    loadAudio(noteMap[e.key]);
+    playAudio(noteMap[e.key]);
+    console.log(e.key);
+  }
+});
 
-document.getElementById("c").addEventListener("click", playAudio);
-document.getElementById("d").addEventListener("click", playAudio);
-document.getElementById("e").addEventListener("click", playAudio);
-document.getElementById("f").addEventListener("click", playAudio);
-document.getElementById("g").addEventListener("click", playAudio);
-document.getElementById("a").addEventListener("click", playAudio);
-document.getElementById("b").addEventListener("click", playAudio);
-document.getElementById("C").addEventListener("click", playAudio);
+document.addEventListener("mouseup", (e) => {
+  stopAudio(noteMap[e.key]);
+});
+
+document.getElementById("gain").addEventListener("input", updateGain);
