@@ -16,13 +16,13 @@ const loadAudio = async function (filename) {
   const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
   source = audioCtx.createBufferSource();
   source.buffer = audioBuffer;
+  source.connect(masterGain);
+  return source;
 };
 
-const playAudio = function (filename) {
+const playAudio = async function (filename) {
   if (!activeVoices[filename]) {
-    let someVoice = new Voice(audioCtx, masterGain);
-    activeVoices[filename] = someVoice;
-    loadAudio(filename);
+    activeVoices[filename] = await loadAudio(filename);
     activeVoices[filename].start();
   }
 };
@@ -60,7 +60,6 @@ const noteMap = {
  */
 document.addEventListener("keydown", (e) => {
   if (noteMap[e.key]) {
-    loadAudio(noteMap[e.key]);
     playAudio(noteMap[e.key]);
     console.log(e.key);
   }
