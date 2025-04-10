@@ -44,14 +44,19 @@ const updateGain = function () {
 };
 
 const noteMap = {
-  a: "taylerkeyboard oohA.wav",
-  s: "ooh-pitchII_01.wav",
-  d: "ooh-pitchII_02.wav",
-  f: "ooh-pitchII_03.wav",
-  g: "ooh-pitchII_04.wav",
-  h: "ooh-pitchII_05.wav",
-  j: "ooh-pitchII_06.wav",
-  k: "ooh-pitchII_07.wav",
+  a: "ooh.c.wav",
+  w: "ooh.c#.wav",
+  s: "ooh.d.wav",
+  e: "ooh.d#.wav",
+  d: "ooh.e.wav",
+  f: "ooh.f.wav",
+  t: "ooh.f#.wav",
+  g: "ooh.g.wav",
+  y: "ooh.g#.wav",
+  h: "ooh.a.wav",
+  u: "ooh.a#.wav",
+  j: "ooh.b.wav",
+  k: "ooh.oct.wav",
 };
 
 /**
