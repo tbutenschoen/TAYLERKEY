@@ -1,5 +1,10 @@
 import Voice from "./Voice.js";
 
+//envelope
+//record other vowels
+//start coding for vowel switch
+//key depress style
+
 const audioCtx = new AudioContext();
 
 let source;
@@ -16,7 +21,10 @@ const loadAudio = async function (filename) {
   const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
   source = audioCtx.createBufferSource();
   source.buffer = audioBuffer;
-  source.connect(masterGain);
+  const ampEnv = audioCtx.createGain();
+  source.connect(ampEnv);
+  ampEnv.connect(masterGain);
+  source.start();
   return source;
 };
 
@@ -45,19 +53,39 @@ const updateGain = function () {
 
 const noteMap = {
   a: "ooh.c.wav",
-  w: "ooh.c#.wav",
+  w: "ooh.cc.wav",
   s: "ooh.d.wav",
-  e: "ooh.d#.wav",
+  e: "ooh.dd.wav",
   d: "ooh.e.wav",
   f: "ooh.f.wav",
-  t: "ooh.f#.wav",
+  t: "ooh.ff.wav",
   g: "ooh.g.wav",
-  y: "ooh.g#.wav",
+  y: "ooh.gg.wav",
   h: "ooh.a.wav",
-  u: "ooh.a#.wav",
+  u: "ooh.aa.wav",
   j: "ooh.b.wav",
   k: "ooh.oct.wav",
 };
+
+const keyboard = document.getElementById("keyboard");
+
+const keyboardKeys = keyboard.querySelectorAll("li");
+keyboardKeys.forEach((pressKey) => {
+  pressKey.addEventListener("mousedown", (event) => {
+    let keyName = event.target.getAttribute("key");
+    if (noteMap[keyName]) {
+      playAudio(noteMap[keyName]);
+      console.log(keyName);
+    }
+  });
+
+  pressKey.addEventListener("mouseup", (event) => {
+    let keyName = event.target.getAttribute("key");
+    if (noteMap[keyName]) {
+      stopAudio(noteMap[keyName]);
+    }
+  });
+});
 
 /**
  * @event keydown
@@ -78,18 +106,6 @@ document.addEventListener("keyup", (e) => {
   if (noteMap[e.key]) {
     stopAudio(noteMap[e.key]);
   }
-});
-
-document.addEventListener("mousedown", (e) => {
-  if (noteMap[e.key]) {
-    loadAudio(noteMap[e.key]);
-    playAudio(noteMap[e.key]);
-    console.log(e.key);
-  }
-});
-
-document.addEventListener("mouseup", (e) => {
-  stopAudio(noteMap[e.key]);
 });
 
 document.getElementById("gain").addEventListener("input", updateGain);
