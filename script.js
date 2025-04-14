@@ -15,7 +15,7 @@ masterGain.gain.value = 0.2;
 masterGain.connect(audioCtx.destination);
 
 const loadAudio = async function (filename) {
-  const file = await fetch(filename);
+  const file = await fetch([filename]);
   const arrayBuffer = await file.arrayBuffer();
   const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
   source = audioCtx.createBufferSource();
@@ -30,7 +30,6 @@ const loadAudio = async function (filename) {
 const playAudio = async function (filename) {
   if (!activeVoices[filename]) {
     activeVoices[filename] = await loadAudio(filename);
-    activeVoices[filename].start();
   }
 };
 
@@ -50,9 +49,9 @@ const updateGain = function () {
   );
 };
 
-const selectVowel = function () {
-  //let vowel =
-};
+//const selectVowel = function (key) {
+//  noteMap.$[key];
+//  console.log(noteMap.$[key]);};
 
 const noteMap = {
   ah: {
@@ -140,7 +139,7 @@ keyboardKeys.forEach((pressKey) => {
     let keyName = event.target.getAttribute("key");
     if (noteMap.ooh[keyName]) {
       playAudio(noteMap.ooh[keyName]);
-      //pressKey[keyName].element.classList.add("pressed");
+      pressKey[keyName].element.classList.add("pressed");
       console.log(keyName);
     }
   });
@@ -149,10 +148,14 @@ keyboardKeys.forEach((pressKey) => {
     let keyName = event.target.getAttribute("key");
     if (noteMap.ooh[keyName]) {
       stopAudio(noteMap.ooh[keyName]);
-      //pressKey[keyName].element.classList.remove("pressed");
+      pressKey[keyName].element.classList.remove("pressed");
     }
   });
 });
+
+//document.addEventListener("keydown", (num) => {
+//  if (noteMap[num.key]) {
+//    selectVowel(noteMap[num.key]); }});
 
 /**
  * @event keydown
@@ -175,10 +178,10 @@ document.addEventListener("keyup", (e) => {
   }
 });
 
-document.getElementById("eh").addEventListener("click", selectVowel);
-document.getElementById("ee").addEventListener("click", selectVowel);
-document.getElementById("ah").addEventListener("click", selectVowel);
-document.getElementById("oh").addEventListener("click", selectVowel);
-document.getElementById("oo").addEventListener("click", selectVowel);
+//document.getElementById("eh").addEventListener("click", selectVowel);
+//document.getElementById("ee").addEventListener("click", selectVowel);
+//document.getElementById("ah").addEventListener("click", selectVowel);
+//document.getElementById("oh").addEventListener("click", selectVowel);
+//document.getElementById("ooh").addEventListener("click", selectVowel);
 
 document.getElementById("gain").addEventListener("input", updateGain);
