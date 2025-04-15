@@ -1,12 +1,14 @@
 import Voice from "./Voice.js";
 
 //envelope
-//start coding for vowel switch
+//coding for vowel switch
 //key depress style
 
 const audioCtx = new AudioContext();
 
 let source;
+let ampEnv;
+let currentTime = Date.now();
 
 const activeVoices = {};
 
@@ -24,6 +26,8 @@ const loadAudio = async function (filename) {
   source.connect(ampEnv);
   ampEnv.connect(masterGain);
   source.start();
+  ampEnv.gain.linearRampToValueAtTime(1, currentTime + 0.1);
+  ampEnv.gain.linearRampToValueAtTime(0.8, currentTime + 0.2);
   return source;
 };
 
@@ -43,10 +47,7 @@ const stopAudio = function (filename) {
 const updateGain = function () {
   let sliderValue = document.getElementById("gain").value;
   sliderValue = parseFloat(sliderValue);
-  masterGain.gain.linearRampToValueAtTime(
-    sliderValue,
-    audioCtx.currentTime + 0.01
-  );
+  masterGain.gain.setValueAtTime(sliderValue, audioCtx.currentTime);
 };
 
 //const selectVowel = function (key) {
