@@ -7,8 +7,7 @@ import Voice from "./Voice.js";
 const audioCtx = new AudioContext();
 
 let source;
-let ampEnv;
-let currentTime = Date.now();
+let currentVowel = "ah";
 
 const activeVoices = {};
 
@@ -26,8 +25,6 @@ const loadAudio = async function (filename) {
   source.connect(ampEnv);
   ampEnv.connect(masterGain);
   source.start();
-  ampEnv.gain.linearRampToValueAtTime(1, currentTime + 0.1);
-  ampEnv.gain.linearRampToValueAtTime(0.8, currentTime + 0.2);
   return source;
 };
 
@@ -50,85 +47,93 @@ const updateGain = function () {
   masterGain.gain.setValueAtTime(sliderValue, audioCtx.currentTime);
 };
 
-//const selectVowel = function (key) {
-//  noteMap.$[key];
-//  console.log(noteMap.$[key]);};
+const selectVowel = function (e) {
+  currentVowel = vowelMap[e];
+};
+
+const vowelMap = {
+  z: "eh",
+  x: "ee",
+  c: "ah",
+  v: "oh",
+  b: "ooh",
+};
 
 const noteMap = {
   ah: {
-    a: "ahsah.a.wav",
-    w: "ahsah.cc.wav",
-    s: "ahsah.d.wav",
-    e: "ahsah.dd.wav",
-    d: "ahsah.e.wav",
-    f: "ahsah.f.wav",
-    t: "ahsah.ff.wav",
-    g: "ahsah.g.wav",
-    y: "ahsah.gg.wav",
-    h: "ahsah.a.wav",
-    u: "ahsah.aa.wav",
-    j: "ahsah.b.wav",
-    k: "ahsah.oct.wav",
+    a: "ahs/ah.c.wav",
+    w: "ahs/ah.cc.wav",
+    s: "ahs/ah.d.wav",
+    e: "ahs/ah.dd.wav",
+    d: "ahs/ah.e.wav",
+    f: "ahs/ah.f.wav",
+    t: "ahs/ah.ff.wav",
+    g: "ahs/ah.g.wav",
+    y: "ahs/ah.gg.wav",
+    h: "ahs/ah.a.wav",
+    u: "ahs/ah.aa.wav",
+    j: "ahs/ah.b.wav",
+    k: "ahs/ah.oct.wav",
   },
   ee: {
-    a: "eesee.c.wav",
-    w: "eesee.cc.wav",
-    s: "eesee.d.wav",
-    e: "eesee.dd.wav",
-    d: "eesee.e.wav",
-    f: "eesee.f.wav",
-    t: "eesee.ff.wav",
-    g: "eesee.g.wav",
-    y: "eesee.gg.wav",
-    h: "eesee.a.wav",
-    u: "eesee.aa.wav",
-    j: "eesee.b.wav",
-    k: "eesee.oct.wav",
+    a: "ees/ee.c.wav",
+    w: "ees/ee.cc.wav",
+    s: "ees/ee.d.wav",
+    e: "ees/ee.dd.wav",
+    d: "ees/ee.e.wav",
+    f: "ees/ee.f.wav",
+    t: "ees/ee.ff.wav",
+    g: "ees/ee.g.wav",
+    y: "ees/ee.gg.wav",
+    h: "ees/ee.a.wav",
+    u: "ees/ee.aa.wav",
+    j: "ees/ee.b.wav",
+    k: "ees/ee.oct.wav",
   },
   eh: {
-    a: "ehseh.c.wav",
-    w: "ehseh.cc.wav",
-    s: "ehseh.d.wav",
-    e: "ehseh.dd.wav",
-    d: "ehseh.e.wav",
-    f: "ehseh.f.wav",
-    t: "ehseh.ff.wav",
-    g: "ehseh.g.wav",
-    y: "ehseh.gg.wav",
-    h: "ehseh.a.wav",
-    u: "ehseh.aa.wav",
-    j: "ehseh.b.wav",
-    k: "ehseh.oct.wav",
+    a: "ehs/eh.c.wav",
+    w: "ehs/eh.cc.wav",
+    s: "ehs/eh.d.wav",
+    e: "ehs/eh.dd.wav",
+    d: "ehs/eh.e.wav",
+    f: "ehs/eh.f.wav",
+    t: "ehs/eh.ff.wav",
+    g: "ehs/eh.g.wav",
+    y: "ehs/eh.gg.wav",
+    h: "ehs/eh.a.wav",
+    u: "ehs/eh.aa.wav",
+    j: "ehs/eh.b.wav",
+    k: "ehs/eh.oct.wav",
   },
   oh: {
-    a: "ohsoh.c.wav",
-    w: "ohsoh.cc.wav",
-    s: "ohsoh.d.wav",
-    e: "ohsoh.dd.wav",
-    d: "ohsoh.e.wav",
-    f: "ohsoh.f.wav",
-    t: "ohsoh.ff.wav",
-    g: "ohsoh.g.wav",
-    y: "ohsoh.gg.wav",
-    h: "ohsoh.a.wav",
-    u: "ohsoh.aa.wav",
-    j: "ohsoh.b.wav",
-    k: "ohsoh.oct.wav",
+    a: "ohs/oh.c.wav",
+    w: "ohs/oh.cc.wav",
+    s: "ohs/oh.d.wav",
+    e: "ohs/oh.dd.wav",
+    d: "ohs/oh.e.wav",
+    f: "ohs/oh.f.wav",
+    t: "ohs/oh.ff.wav",
+    g: "ohs/oh.g.wav",
+    y: "ohs/oh.gg.wav",
+    h: "ohs/oh.a.wav",
+    u: "ohs/oh.aa.wav",
+    j: "ohs/oh.b.wav",
+    k: "ohs/oh.oct.wav",
   },
   ooh: {
-    a: "ooh.c.wav",
-    w: "ooh.cc.wav",
-    s: "ooh.d.wav",
-    e: "ooh.dd.wav",
-    d: "ooh.e.wav",
-    f: "ooh.f.wav",
-    t: "ooh.ff.wav",
-    g: "ooh.g.wav",
-    y: "ooh.gg.wav",
-    h: "ooh.a.wav",
-    u: "ooh.aa.wav",
-    j: "ooh.b.wav",
-    k: "ooh.oct.wav",
+    a: "oohs/ooh.c.wav",
+    w: "oohs/ooh.cc.wav",
+    s: "oohs/ooh.d.wav",
+    e: "oohs/ooh.dd.wav",
+    d: "oohs/ooh.e.wav",
+    f: "oohs/ooh.f.wav",
+    t: "oohs/ooh.ff.wav",
+    g: "oohs/ooh.g.wav",
+    y: "oohs/ooh.gg.wav",
+    h: "oohs/ooh.a.wav",
+    u: "oohs/ooh.aa.wav",
+    j: "oohs/ooh.b.wav",
+    k: "oohs/ooh.oct.wav",
   },
 };
 
@@ -138,8 +143,8 @@ const keyboardKeys = keyboard.querySelectorAll("li");
 keyboardKeys.forEach((pressKey) => {
   pressKey.addEventListener("mousedown", (event) => {
     let keyName = event.target.getAttribute("key");
-    if (noteMap.ooh[keyName]) {
-      playAudio(noteMap.ooh[keyName]);
+    if (noteMap[currentVowel][keyName]) {
+      playAudio(noteMap[currentVowel][keyName]);
       pressKey[keyName].element.classList.add("pressed");
       console.log(keyName);
     }
@@ -147,26 +152,23 @@ keyboardKeys.forEach((pressKey) => {
 
   pressKey.addEventListener("mouseup", (event) => {
     let keyName = event.target.getAttribute("key");
-    if (noteMap.ooh[keyName]) {
-      stopAudio(noteMap.ooh[keyName]);
+    if (noteMap[currentVowel][keyName]) {
+      stopAudio(noteMap[currentVowel][keyName]);
       pressKey[keyName].element.classList.remove("pressed");
     }
   });
 });
-
-//document.addEventListener("keydown", (num) => {
-//  if (noteMap[num.key]) {
-//    selectVowel(noteMap[num.key]); }});
 
 /**
  * @event keydown
  * @description Listens for keydown events and starts a note if the key is mapped.
  */
 document.addEventListener("keydown", (e) => {
-  if (noteMap.ooh[e.key]) {
-    playAudio(noteMap.ooh[e.key]);
+  if (noteMap[currentVowel][e.key]) {
+    playAudio(noteMap[currentVowel][e.key]);
     console.log(e.key);
   }
+  if (vowelMap[e.key]) selectVowel(vowelMap[e.key]);
 });
 
 /**
@@ -174,8 +176,8 @@ document.addEventListener("keydown", (e) => {
  * @description Listens for keyup events and stops a note if the key is mapped.
  */
 document.addEventListener("keyup", (e) => {
-  if (noteMap.ooh[e.key]) {
-    stopAudio(noteMap.ooh[e.key]);
+  if (noteMap[currentVowel][e.key]) {
+    stopAudio(noteMap[currentVowel][e.key]);
   }
 });
 
