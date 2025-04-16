@@ -7,7 +7,7 @@ import Voice from "./Voice.js";
 const audioCtx = new AudioContext();
 
 let source;
-let currentVowel = "ah";
+let currentVowel = "ooh";
 
 const activeVoices = {};
 
@@ -47,7 +47,7 @@ const updateGain = function () {
   masterGain.gain.setValueAtTime(sliderValue, audioCtx.currentTime);
 };
 
-const selectVowel = function (e) {
+const updateVowel = function (e) {
   currentVowel = vowelMap[e];
 };
 
@@ -168,8 +168,11 @@ document.addEventListener("keydown", (e) => {
     playAudio(noteMap[currentVowel][e.key]);
     console.log(e.key);
   }
-  if (vowelMap[e.key]) selectVowel(vowelMap[e.key]);
 });
+
+document.addEventListener("keydown", (k) => {
+  if (vowelMap[k.key]) {
+
 
 /**
  * @event keyup
@@ -181,10 +184,10 @@ document.addEventListener("keyup", (e) => {
   }
 });
 
-//document.getElementById("eh").addEventListener("click", selectVowel);
-//document.getElementById("ee").addEventListener("click", selectVowel);
-//document.getElementById("ah").addEventListener("click", selectVowel);
-//document.getElementById("oh").addEventListener("click", selectVowel);
-//document.getElementById("ooh").addEventListener("click", selectVowel);
+document.getElementById("eh").addEventListener("click", updateVowel(z));
+document.getElementById("ee").addEventListener("click", updateVowel(x));
+document.getElementById("ah").addEventListener("click", updateVowel(c));
+document.getElementById("oh").addEventListener("click", updateVowel(v));
+document.getElementById("ooh").addEventListener("click", updateVowel(b));
 
 document.getElementById("gain").addEventListener("input", updateGain);
