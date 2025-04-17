@@ -49,6 +49,7 @@ const updateGain = function () {
 
 const updateVowel = function (e) {
   currentVowel = vowelMap[e];
+  console.log(currentVowel);
 };
 
 const vowelMap = {
@@ -149,7 +150,12 @@ keyboardKeys.forEach((pressKey) => {
       console.log(keyName);
     }
   });
-
+  pressKey.addEventListener("mousedown", (event) => {
+    let keyName = event.target.getAttribute("key");
+    if (vowelMap[keyName]) {
+      updateVowel([keyName]);
+    }
+  });
   pressKey.addEventListener("mouseup", (event) => {
     let keyName = event.target.getAttribute("key");
     if (noteMap[currentVowel][keyName]) {
@@ -172,7 +178,9 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener("keydown", (k) => {
   if (vowelMap[k.key]) {
-
+    updateVowel([k.key]);
+  }
+});
 
 /**
  * @event keyup
@@ -183,11 +191,5 @@ document.addEventListener("keyup", (e) => {
     stopAudio(noteMap[currentVowel][e.key]);
   }
 });
-
-document.getElementById("eh").addEventListener("click", updateVowel(z));
-document.getElementById("ee").addEventListener("click", updateVowel(x));
-document.getElementById("ah").addEventListener("click", updateVowel(c));
-document.getElementById("oh").addEventListener("click", updateVowel(v));
-document.getElementById("ooh").addEventListener("click", updateVowel(b));
 
 document.getElementById("gain").addEventListener("input", updateGain);

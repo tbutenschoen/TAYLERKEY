@@ -31,7 +31,8 @@ body {
 }
 
 .white,
-.black {
+.black,
+.num {
   position: relative;
   float: left;
   display: flex;
@@ -57,8 +58,9 @@ body {
   border-left: 1px solid hsl(0, 0%, 73%);
   border-bottom: 1px solid hsl(0, 0%, 73%);
   border-radius: 0 0 5px 5px;
-  box-shadow: -1px 0 0 var(--white80) inset, 0 0 5px hsl(0, 0%, 80%) inset,
+  box-shadow: -1px 0 0 var(--white80) inset, 0 0 5px hsl(0, 1%, 30%) inset,
     0 0 3px var(--black-30);
+  background: hsl(195, 6%, 87%);
 }
 
 .black {
@@ -93,6 +95,19 @@ body {
     hsl(0, 0%, 13%) 100%
   );
   outline: none;
+}
+
+.num {
+  height: 4rem;
+  width: 2rem;
+  z-index: 1;
+  border-left: 1px solid hsl(313, 53%, 27%);
+  border-bottom: 1px solid hsl(318, 52%, 32%);
+  border-top: 1px solid hsl(318, 50%, 27%);
+  border-radius: 0 0 5px 5px;
+  box-shadow: -1px 0 0 hsl(307, 84%, 75%) inset,
+    0 0 5px hsl(307, 84%, 75%) inset, 0 0 3px var(--black-30);
+  background: hsl(307, 84%, 75%);
 }
 
 .offset {
