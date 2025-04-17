@@ -7,14 +7,31 @@
     <script type="module" src="script.js"></script>
     <link rel="styleSheet" href="keyboard.css" />
     <div>
-    <h1>TAYLER KEYBOARD</h1>
+      <h1>TAYLER KEYBOARD</h1>
     </div>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 3;
+        max-width: 24000px;
+        margin: 3em auto;
+        padding: 0 1em;
+        background: #b5e5f9;
+        color: #333;
+      }
+      pre {
+        background: #f8aae8;
+        padding: 1em;
+        overflow-x: auto;
+        font-size: 0.95em;
+      }
+      code {
+        font-family: monospace;
+      }
+    </style>
   </head>
-  <div>
   <body>
-    <input id="gain" type="range" min="-12" max="12" step="1" /> Volume
-    </div>
-    <div>
+    <input id="gain" type="range" min="0" max="6" step="0.5" /> Volume
     <ul id="keyboard">
       <li key="z" class="num">[ɜ]</li>
       <li key="x" class="num">[i]</li>
@@ -36,6 +53,5 @@
       <li key="j" class="white offset">J</li>
       <li key="k" class="white">K</li>
     </ul>
-    </div>
   </body>
 </html>

@@ -41,10 +41,8 @@ const stopAudio = function (filename) {
   }
 };
 
-const updateGain = function () {
-  let sliderValue = document.getElementById("gain").value;
-  sliderValue = parseFloat(sliderValue);
-  masterGain.gain.setValueAtTime(sliderValue, audioCtx.currentTime);
+const updateGain = function (event) {
+  masterGain.gain.value = event.target.value;
 };
 
 const updateVowel = function (e) {
