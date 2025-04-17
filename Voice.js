@@ -1,13 +1,13 @@
 export default class Voice {
-  constructor(ctx, output, attack, decay, sus, release, amp) {
+  constructor(ctx, out) {
     this.context = ctx;
-    this.output = output;
+    this.output = out;
 
-    this.attack = attack;
-    this.decay = decay;
-    this.sustain = sus;
-    this.release = release;
-    this.Amp = amp;
+    this.attack = 0.1;
+    this.decay = 0.1;
+    this.sustain = 0.9;
+    this.release = 0.2;
+    this.Amp = 1;
   }
 
   start() {

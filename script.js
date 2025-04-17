@@ -21,16 +21,17 @@ const loadAudio = async function (filename) {
   const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
   source = audioCtx.createBufferSource();
   source.buffer = audioBuffer;
-  const ampEnv = audioCtx.createGain();
-  source.connect(ampEnv);
-  ampEnv.connect(masterGain);
+  source.connect(masterGain);
   source.start();
   return source;
 };
 
 const playAudio = async function (filename) {
   if (!activeVoices[filename]) {
+    const myVoice = new Voice(audioCtx, masterGain);
+    activeVoices[filename] = myVoice;
     activeVoices[filename] = await loadAudio(filename);
+    activeVoices[filename].start();
   }
 };
 
@@ -144,7 +145,6 @@ keyboardKeys.forEach((pressKey) => {
     let keyName = event.target.getAttribute("key");
     if (noteMap[currentVowel][keyName]) {
       playAudio(noteMap[currentVowel][keyName]);
-      pressKey[keyName].element.classList.add("pressed");
       console.log(keyName);
     }
   });
@@ -158,7 +158,6 @@ keyboardKeys.forEach((pressKey) => {
     let keyName = event.target.getAttribute("key");
     if (noteMap[currentVowel][keyName]) {
       stopAudio(noteMap[currentVowel][keyName]);
-      pressKey[keyName].element.classList.remove("pressed");
     }
   });
 });
