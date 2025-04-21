@@ -37,7 +37,7 @@ const playAudio = async function (filename) {
 
 const stopAudio = function (filename) {
   if (activeVoices[filename]) {
-    activeVoices[filename].stop(myBuffer);
+    activeVoices[filename].stop();
     delete activeVoices[filename];
   }
 };

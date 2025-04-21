@@ -3,7 +3,7 @@ export default class Voice {
     this.context = ctx;
     this.output = out;
 
-    this.attack = 0.1;
+    this.attack = 0.05;
     this.decay = 0.1;
     this.sustain = 0.9;
     this.release = 0.2;
@@ -35,8 +35,10 @@ export default class Voice {
   stop() {
     const now = this.context.currentTime;
     this.ampEnv.gain.cancelScheduledValues(now);
+    this.ampEnv.gain.setValueAtTime(this.ampEnv.gain.value, now);
+
     this.ampEnv.gain.linearRampToValueAtTime(0, now + this.release);
-    this.source.stop(now + this.release + 0.01);
+    this.source.stop(now + this.release + 0.02);
   }
 
   dispose() {
