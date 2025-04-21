@@ -12,7 +12,7 @@ let currentVowel = "ooh";
 const activeVoices = {};
 
 const masterGain = audioCtx.createGain();
-masterGain.gain.value = 0.2;
+masterGain.gain.value = 3;
 masterGain.connect(audioCtx.destination);
 
 const loadAudio = async function (filename) {
