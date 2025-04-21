@@ -1,0 +1,12 @@
+h1 {
+  background-color: hsl(58, 63%, 79%);
+  background-position: center left right center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  font-family: monospace;
+  padding: 1rem 0;
+  width: auto;
+  border-style: groove;
+  border-width: 1rem;
+  border-color: rgb(233, 132, 196);
+}

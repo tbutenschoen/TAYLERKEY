@@ -6,7 +6,7 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: monospace;
 }
 
 body {
@@ -55,12 +55,12 @@ body {
   height: 12.5rem;
   width: 3.5rem;
   z-index: 1;
-  border-left: 1px solid hsl(0, 0%, 73%);
-  border-bottom: 1px solid hsl(0, 0%, 73%);
+  border-left: 1px solid hsl(0, 20%, 91%);
+  border-bottom: 1px solid hsl(0, 20%, 91%);
   border-radius: 0 0 5px 5px;
   box-shadow: -1px 0 0 var(--white80) inset, 0 0 5px hsl(0, 1%, 30%) inset,
     0 0 3px var(--black-30);
-  background: hsl(195, 6%, 87%);
+  background: hsl(58, 63%, 79%);
 }
 
 .black {
@@ -77,9 +77,9 @@ body {
 }
 
 .white.pressed {
-  border-top: 1px solid hsl(0, 0%, 47%);
-  border-left: 1px solid hsl(0, 0%, 60%);
-  border-bottom: 1px solid hsl(0, 0%, 60%);
+  border-top: 1px solid hsl(0, 27%, 91%);
+  border-left: 1px solid hsl(0, 25%, 97%);
+  border-bottom: 1px solid hsl(0, 20%, 91%);
   box-shadow: 2px 0 3px var(--black-10) inset,
     -5px 5px 20px var(--black-20) inset, 0 0px 3px var(--black-20);
   background: linear-gradient(to bottom, white 0%, hsl(0, 0%, 91%) 100%);
@@ -91,7 +91,7 @@ body {
     0 -2px 2px 3px var(--black-60) inset, 0 1px 2px var(--black-50);
   background: linear-gradient(
     to right,
-    hsl(0, 0%, 27%) 0%,
+    S hsl(0, 0%, 27%) 0%,
     hsl(0, 0%, 13%) 100%
   );
   outline: none;
@@ -101,9 +101,9 @@ body {
   height: 4rem;
   width: 2rem;
   z-index: 1;
-  border-left: 1px solid hsl(313, 53%, 27%);
-  border-bottom: 1px solid hsl(318, 52%, 32%);
-  border-top: 1px solid hsl(318, 50%, 27%);
+  border-left: 1px solid hsl(309, 20%, 86%);
+  border-bottom: 1px solid hsl(315, 13%, 81%);
+  border-top: 1px solid hsl(318, 36%, 87%);
   border-radius: 0 0 5px 5px;
   box-shadow: -1px 0 0 hsl(307, 84%, 75%) inset,
     0 0 5px hsl(307, 84%, 75%) inset, 0 0 3px var(--black-30);

@@ -19,25 +19,25 @@ const loadAudio = async function (filename) {
   const file = await fetch([filename]);
   const arrayBuffer = await file.arrayBuffer();
   const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-  source = audioCtx.createBufferSource();
-  source.buffer = audioBuffer;
-  source.connect(masterGain);
-  source.start();
-  return source;
+  //source = audioCtx.createBufferSource();
+  //source.buffer = audioBuffer;
+  // source.connect(masterGain);
+  //source.start();
+  return audioBuffer;
 };
 
 const playAudio = async function (filename) {
   if (!activeVoices[filename]) {
     const myVoice = new Voice(audioCtx, masterGain);
     activeVoices[filename] = myVoice;
-    activeVoices[filename] = await loadAudio(filename);
-    activeVoices[filename].start();
+    let myBuffer = await loadAudio(filename);
+    activeVoices[filename].start(myBuffer);
   }
 };
 
 const stopAudio = function (filename) {
   if (activeVoices[filename]) {
-    activeVoices[filename].stop();
+    activeVoices[filename].stop(myBuffer);
     delete activeVoices[filename];
   }
 };

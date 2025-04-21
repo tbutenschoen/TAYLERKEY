@@ -10,9 +10,11 @@ export default class Voice {
     this.Amp = 1;
   }
 
-  start() {
+  start(bufferData) {
     const now = this.context.currentTime;
+
     this.source = this.context.createBufferSource();
+    this.source.buffer = bufferData;
     this.source.onended = this.dispose.bind(this);
 
     this.ampEnv = this.context.createGain();
