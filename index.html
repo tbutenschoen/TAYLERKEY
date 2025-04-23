@@ -7,9 +7,8 @@
     <script type="module" src="script.js"></script>
     <link rel="styleSheet" href="keyboard.css" />
     <link rel="styleSheet" href="page.css" />
-
-    <div>
-      <h1>TAYLER KEYBOARD</h1>
+    <div id="head" style="width: 500">
+      <b><h1>TAYLER KEYBOARD</h1></b>
     </div>
     <style>
       body {
@@ -18,42 +17,65 @@
         max-width: 24000px;
         margin: 3em auto;
         padding: 0 1em;
-        background: #b5e5f9;
+        background: #d3e8fa;
         color: #333;
       }
       pre {
-        background: #f8aae8;
+        background: #d3e8fa;
         padding: 1em;
         overflow-x: auto;
         font-size: 0.95em;
       }
+
+      h1 {
+        background-color: hsl(267, 65%, 90%);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        font-family: monospace;
+        padding: 1rem 0;
+        width: auto;
+        border-style: groove;
+        border-width: 1rem;
+        border-color: rgb(55, 23, 99);
+      }
+
       code {
         font-family: monospace;
       }
     </style>
   </head>
   <body>
-    <input id="gain" type="range" min="0" max="6" step="0.5" /> Volume
-    <ul id="keyboard">
-      <li key="z" class="num">[ɜ]</li>
-      <li key="x" class="num">[i]</li>
-      <li key="c" class="num">[ɑ]</li>
-      <li key="v" class="num">[ɔ]</li>
-      <li key="b" class="num">[u]</li>
+    <div id="gainBar">
+      <h2>
+        <input id="gain" type="range" min="0" max="6" step="0.5" /> Volume
+      </h2>
+    </div>
+    <div id="buttonsExplained">
+      <h3>Push these buttons to change the vowel!</h3>
+    </div>
+    <h4>
+      <ul id="keyboard">
+        <li key="z" class="num">z</li>
+        <li key="x" class="num">x</li>
+        <li key="c" class="num">c</li>
+        <li key="v" class="num">v</li>
+        <li key="b" class="num">b</li>
 
-      <li key="a" class="white">A</li>
-      <li key="w" class="black">W</li>
-      <li key="s" class="white offset">S</li>
-      <li key="e" class="black">E</li>
-      <li key="d" class="white offset">D</li>
-      <li key="f" class="white">F</li>
-      <li key="t" class="black">T</li>
-      <li key="g" class="white offset">G</li>
-      <li key="y" class="black">Y</li>
-      <li key="h" class="white offset">H</li>
-      <li key="u" class="black">U</li>
-      <li key="j" class="white offset">J</li>
-      <li key="k" class="white">K</li>
-    </ul>
+        <li key="a" class="white">A</li>
+        <li key="w" class="black">W</li>
+        <li key="s" class="white offset">S</li>
+        <li key="e" class="black">E</li>
+        <li key="d" class="white offset">D</li>
+        <li key="f" class="white">F</li>
+        <li key="t" class="black">T</li>
+        <li key="g" class="white offset">G</li>
+        <li key="y" class="black">Y</li>
+        <li key="h" class="white offset">H</li>
+        <li key="u" class="black">U</li>
+        <li key="j" class="white offset">J</li>
+        <li key="k" class="white">K</li>
+      </ul>
+    </h4>
   </body>
 </html>

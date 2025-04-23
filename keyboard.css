@@ -52,22 +52,23 @@ body {
 }
 
 .white {
-  height: 12.5rem;
-  width: 3.5rem;
-  z-index: 1;
-  border-left: 1px solid hsl(0, 20%, 91%);
-  border-bottom: 1px solid hsl(0, 20%, 91%);
+  height: 19rem;
+  width: 6rem;
+  z-index: 0;
+  border-left: 1px solid hsl(263, 91%, 13%);
+  border-right: 1px solid hsl(263, 91%, 13%);
+  border-bottom: 1px solid hsl(263, 91%, 13%);
+  border-top: 1px solid hsl(263, 91%, 13%);
   border-radius: 0 0 5px 5px;
-  box-shadow: -1px 0 0 var(--white80) inset, 0 0 5px hsl(0, 1%, 30%) inset,
-    0 0 3px var(--black-30);
-  background: hsl(58, 63%, 79%);
+  box-shadow: 1px solid hsl(263, 91%, 13%);
+  background: hsl(267, 65%, 90%);
 }
 
 .black {
-  height: 8rem;
-  width: 2rem;
-  margin: 0 0 0 -1rem;
-  z-index: 2;
+  height: 12rem;
+  width: 3rem;
+  margin: 0 0 0 -2rem;
+  z-index: 1;
   border: 1px solid black;
   border-radius: 0 0 3px 3px;
   box-shadow: -1px -1px 2px var(--white-20) inset,
@@ -98,16 +99,16 @@ body {
 }
 
 .num {
-  height: 4rem;
-  width: 2rem;
+  height: 6rem;
+  width: 3rem;
   z-index: 1;
   border-left: 1px solid hsl(309, 20%, 86%);
   border-bottom: 1px solid hsl(315, 13%, 81%);
   border-top: 1px solid hsl(318, 36%, 87%);
   border-radius: 0 0 5px 5px;
-  box-shadow: -1px 0 0 hsl(307, 84%, 75%) inset,
-    0 0 5px hsl(307, 84%, 75%) inset, 0 0 3px var(--black-30);
-  background: hsl(307, 84%, 75%);
+  box-shadow: -1px 0 0 hsl(234, 70%, 64%) inset,
+    0 0 5px hsl(234, 70%, 64%) inset, 0 0 3px var(--black-30);
+  background: hsl(234, 70%, 64%);
 }
 
 .offset {
