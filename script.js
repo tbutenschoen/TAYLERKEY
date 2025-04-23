@@ -11,26 +11,34 @@ const masterGain = audioCtx.createGain();
 masterGain.gain.value = 3;
 masterGain.connect(audioCtx.destination);
 
-const loadAudio = async function (filename) {
-  const file = await fetch([filename]);
+const loadBuffer = async function (filename) {
+  const file = await fetch(currentVowel[filename]);
   const arrayBuffer = await file.arrayBuffer();
   const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
   return audioBuffer;
 };
 
+const createBuffer = async function (filename) {
+  for (let filename in noteMap) {
+    let notePath = noteMap[currentVowel[filename]].path;
+    let audio = await loadBuffer(notePath);
+    noteMap[currentVowel[filename]].buffer = audio;
+  }
+};
+
 const playAudio = async function (filename) {
   if (!activeVoices[filename]) {
     const myVoice = new Voice(audioCtx, masterGain);
-    activeVoices[filename] = myVoice;
-    let myBuffer = await loadAudio(filename);
-    activeVoices[filename].start(myBuffer);
+    activeVoices[currentVowel[filename]] = myVoice;
+    let myBuffer = await createBuffer(currentVowel[filename]);
+    activeVoices[currentVowel[filename]].start(myBuffer);
   }
 };
 
 const stopAudio = function (filename) {
   if (activeVoices[filename]) {
-    activeVoices[filename].stop();
-    delete activeVoices[filename];
+    activeVoices[currentVowel[filename]].stop();
+    delete activeVoices[currentVowel[filename]];
   }
 };
 
@@ -53,79 +61,274 @@ const vowelMap = {
 
 const noteMap = {
   ah: {
-    a: "ahs/ah.c.wav",
-    w: "ahs/ah.cc.wav",
-    s: "ahs/ah.d.wav",
-    e: "ahs/ah.dd.wav",
-    d: "ahs/ah.e.wav",
-    f: "ahs/ah.f.wav",
-    t: "ahs/ah.ff.wav",
-    g: "ahs/ah.g.wav",
-    y: "ahs/ah.gg.wav",
-    h: "ahs/ah.a.wav",
-    u: "ahs/ah.aa.wav",
-    j: "ahs/ah.b.wav",
-    k: "ahs/ah.oct.wav",
+    a: {
+      path: "ahs/ah.c.wav",
+      buffer: null,
+    },
+    w: {
+      path: "ahs/ah.cc.wav",
+      buffer: null,
+    },
+    s: {
+      path: "ahs/ah.d.wav",
+      buffer: null,
+    },
+    e: {
+      path: "ahs/ah.dd.wav",
+      buffer: null,
+    },
+    d: {
+      path: "ahs/ah.e.wav",
+      buffer: null,
+    },
+    f: {
+      path: "ahs/ah.f.wav",
+      buffer: null,
+    },
+    t: {
+      path: "ahs/ah.ff.wav",
+      buffer: null,
+    },
+    g: {
+      path: "ahs/ah.g.wav",
+      buffer: null,
+    },
+    y: {
+      path: "ahs/ah.gg.wav",
+      buffer: null,
+    },
+    h: {
+      path: "ahs/ah.a.wav",
+      buffer: null,
+    },
+    u: {
+      path: "ahs/ah.aa.wav",
+      buffer: null,
+    },
+    j: {
+      path: "ahs/ah.b.wav",
+      buffer: null,
+    },
+    k: {
+      path: "ahs/ah.oct.wav",
+      buffer: null,
+    },
   },
   ee: {
-    a: "ees/ee.c.wav",
-    w: "ees/ee.cc.wav",
-    s: "ees/ee.d.wav",
-    e: "ees/ee.dd.wav",
-    d: "ees/ee.e.wav",
-    f: "ees/ee.f.wav",
-    t: "ees/ee.ff.wav",
-    g: "ees/ee.g.wav",
-    y: "ees/ee.gg.wav",
-    h: "ees/ee.a.wav",
-    u: "ees/ee.aa.wav",
-    j: "ees/ee.b.wav",
-    k: "ees/ee.oct.wav",
+    a: {
+      path: "ees/ee.c.wav",
+      buffer: null,
+    },
+    w: {
+      path: "ees/ee.cc.wav",
+      buffer: null,
+    },
+    s: {
+      path: "ees/ee.d.wav",
+      buffer: null,
+    },
+    e: {
+      path: "ees/ee.dd.wav",
+      buffer: null,
+    },
+    d: {
+      path: "ees/ee.e.wav",
+      buffer: null,
+    },
+    f: {
+      path: "ees/ee.f.wav",
+      buffer: null,
+    },
+    t: {
+      path: "ees/ee.ff.wav",
+      buffer: null,
+    },
+    g: {
+      path: "ees/ee.g.wav",
+      buffer: null,
+    },
+    y: {
+      path: "ees/ee.gg.wav",
+      buffer: null,
+    },
+    h: {
+      path: "ees/ee.a.wav",
+      buffer: null,
+    },
+    u: {
+      path: "ees/ee.aa.wav",
+      buffer: null,
+    },
+    j: {
+      path: "ees/ee.b.wav",
+      buffer: null,
+    },
+    k: {
+      path: "ees/ee.oct.wav",
+      buffer: null,
+    },
   },
   eh: {
-    a: "ehs/eh.c.wav",
-    w: "ehs/eh.cc.wav",
-    s: "ehs/eh.d.wav",
-    e: "ehs/eh.dd.wav",
-    d: "ehs/eh.e.wav",
-    f: "ehs/eh.f.wav",
-    t: "ehs/eh.ff.wav",
-    g: "ehs/eh.g.wav",
-    y: "ehs/eh.gg.wav",
-    h: "ehs/eh.a.wav",
-    u: "ehs/eh.aa.wav",
-    j: "ehs/eh.b.wav",
-    k: "ehs/eh.oct.wav",
+    a: {
+      path: "ehs/eh.c.wav",
+      buffer: null,
+    },
+    w: {
+      path: "ehs/eh.cc.wav",
+      buffer: null,
+    },
+    s: {
+      path: "ehs/eh.d.wav",
+      buffer: null,
+    },
+    e: {
+      path: "ehs/eh.dd.wav",
+      buffer: null,
+    },
+    d: {
+      path: "ehs/eh.e.wav",
+      buffer: null,
+    },
+    f: {
+      path: "ehs/eh.f.wav",
+      buffer: null,
+    },
+    t: {
+      path: "ehs/eh.ff.wav",
+      buffer: null,
+    },
+    g: {
+      path: "ehs/eh.g.wav",
+      buffer: null,
+    },
+    y: {
+      path: "ehs/eh.gg.wav",
+      buffer: null,
+    },
+    h: {
+      path: "ehs/eh.a.wav",
+      buffer: null,
+    },
+    u: {
+      path: "ehs/eh.aa.wav",
+      buffer: null,
+    },
+    j: {
+      path: "ehs/eh.b.wav",
+      buffer: null,
+    },
+    k: {
+      path: "ehs/eh.oct.wav",
+      buffer: null,
+    },
   },
   oh: {
-    a: "ohs/oh.c.wav",
-    w: "ohs/oh.cc.wav",
-    s: "ohs/oh.d.wav",
-    e: "ohs/oh.dd.wav",
-    d: "ohs/oh.e.wav",
-    f: "ohs/oh.f.wav",
-    t: "ohs/oh.ff.wav",
-    g: "ohs/oh.g.wav",
-    y: "ohs/oh.gg.wav",
-    h: "ohs/oh.a.wav",
-    u: "ohs/oh.aa.wav",
-    j: "ohs/oh.b.wav",
-    k: "ohs/oh.oct.wav",
+    a: {
+      path: "ohs/oh.c.wav",
+      buffer: null,
+    },
+    w: {
+      path: "ohs/oh.cc.wav",
+      buffer: null,
+    },
+    s: {
+      path: "ohs/oh.d.wav",
+      buffer: null,
+    },
+    e: {
+      path: "ohs/oh.dd.wav",
+      buffer: null,
+    },
+    d: {
+      path: "ohs/oh.e.wav",
+      buffer: null,
+    },
+    f: {
+      path: "ohs/oh.f.wav",
+      buffer: null,
+    },
+    t: {
+      path: "ohs/oh.ff.wav",
+      buffer: null,
+    },
+    g: {
+      path: "ohs/oh.g.wav",
+      buffer: null,
+    },
+    y: {
+      path: "ohs/oh.gg.wav",
+      buffer: null,
+    },
+    h: {
+      path: "ohs/oh.a.wav",
+      buffer: null,
+    },
+    u: {
+      path: "ohs/oh.aa.wav",
+      buffer: null,
+    },
+    j: {
+      path: "ohs/oh.b.wav",
+      buffer: null,
+    },
+    k: {
+      path: "ohs/oh.oct.wav",
+      buffer: null,
+    },
   },
   ooh: {
-    a: "oohs/ooh.c.wav",
-    w: "oohs/ooh.cc.wav",
-    s: "oohs/ooh.d.wav",
-    e: "oohs/ooh.dd.wav",
-    d: "oohs/ooh.e.wav",
-    f: "oohs/ooh.f.wav",
-    t: "oohs/ooh.ff.wav",
-    g: "oohs/ooh.g.wav",
-    y: "oohs/ooh.gg.wav",
-    h: "oohs/ooh.a.wav",
-    u: "oohs/ooh.aa.wav",
-    j: "oohs/ooh.b.wav",
-    k: "oohs/ooh.oct.wav",
+    a: {
+      path: "oohs/ooh.c.wav",
+      buffer: null,
+    },
+    w: {
+      path: "oohs/ooh.cc.wav",
+      buffer: null,
+    },
+    s: {
+      path: "oohs/ooh.d.wav",
+      buffer: null,
+    },
+    e: {
+      path: "oohs/ooh.dd.wav",
+      buffer: null,
+    },
+    d: {
+      path: "oohs/ooh.e.wav",
+      buffer: null,
+    },
+    f: {
+      path: "oohs/ooh.f.wav",
+      buffer: null,
+    },
+    t: {
+      path: "oohs/ooh.ff.wav",
+      buffer: null,
+    },
+    g: {
+      path: "oohs/ooh.g.wav",
+      buffer: null,
+    },
+    y: {
+      path: "oohs/ooh.gg.wav",
+      buffer: null,
+    },
+    h: {
+      path: "oohs/ooh.a.wav",
+      buffer: null,
+    },
+    u: {
+      path: "oohs/ooh.aa.wav",
+      buffer: null,
+    },
+    j: {
+      path: "oohs/ooh.b.wav",
+      buffer: null,
+    },
+    k: {
+      path: "oohs/ooh.oct.wav",
+      buffer: null,
+    },
   },
 };
 
