@@ -1,9 +1,5 @@
 import Voice from "./Voice.js";
 
-//envelope
-//coding for vowel switch
-//key depress style
-
 const audioCtx = new AudioContext();
 
 let source;
@@ -19,10 +15,6 @@ const loadAudio = async function (filename) {
   const file = await fetch([filename]);
   const arrayBuffer = await file.arrayBuffer();
   const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-  //source = audioCtx.createBufferSource();
-  //source.buffer = audioBuffer;
-  // source.connect(masterGain);
-  //source.start();
   return audioBuffer;
 };
 

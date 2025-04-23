@@ -1,21 +1,28 @@
 h1 {
-  position: relative;
+  position: relative center;
   background-color: hsl(267, 65%, 90%);
-  background-position: center center;
+  background-position: center top;
   background-repeat: no-repeat;
   background-size: contain;
-  font-family: monospace;
-  padding: 1rem 0;
-  width: fit-content;
+  font-family: Georgia;
+  padding: 10rem 0;
+  width: 24000px;
+  line-height: 2rem;
   border-style: groove;
-  border-width: 1rem;
-  border-color: rgb(55, 23, 99);
+  border-width: 0.5rem;
+  border-color: rgb(43, 23, 99);
+  text-align: center;
 }
 
 h2 {
-  position: relative;
+  position: relative left;
+  text-align: left;
 }
 
 h3 {
-  position: relative;
+  position: relative right;
+}
+
+h4 {
+  position: center center;
 }
