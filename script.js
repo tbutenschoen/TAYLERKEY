@@ -5,40 +5,51 @@ const audioCtx = new AudioContext();
 let source;
 let currentVowel = "ooh";
 
-const activeVoices = {};
+const activeVoices = {
+  eh: {},
+  ee: {},
+  ah: {},
+  oh: {},
+  ooh: {},
+};
 
 const masterGain = audioCtx.createGain();
 masterGain.gain.value = 3;
 masterGain.connect(audioCtx.destination);
 
 const loadBuffer = async function (filename) {
-  const file = await fetch(currentVowel[filename]);
+  const file = await fetch(filename);
   const arrayBuffer = await file.arrayBuffer();
   const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
   return audioBuffer;
 };
 
-const createBuffer = async function (filename) {
-  for (let filename in noteMap) {
-    let notePath = noteMap[currentVowel[filename]].path;
-    let audio = await loadBuffer(notePath);
-    noteMap[currentVowel[filename]].buffer = audio;
+const preloadBuffers = async function () {
+  for (let vowel in noteMap) {
+    for (let key in noteMap[vowel]) {
+      let notePath = noteMap[vowel][key].path;
+      noteMap[vowel][key].buffer = await loadBuffer(notePath);
+    }
   }
 };
 
-const playAudio = async function (filename) {
-  if (!activeVoices[filename]) {
+const playAudio = async function (key) {
+  if (!activeVoices[currentVowel][key]) {
     const myVoice = new Voice(audioCtx, masterGain);
-    activeVoices[currentVowel[filename]] = myVoice;
-    let myBuffer = await createBuffer(currentVowel[filename]);
-    activeVoices[currentVowel[filename]].start(myBuffer);
+    activeVoices[currentVowel][key] = myVoice;
+    let myBuffer = noteMap[currentVowel][key].buffer;
+    activeVoices[currentVowel][key].start(myBuffer);
   }
 };
 
-const stopAudio = function (filename) {
-  if (activeVoices[filename]) {
-    activeVoices[currentVowel[filename]].stop();
-    delete activeVoices[currentVowel[filename]];
+const stopAudio = function (key) {
+  for (let v in activeVoices) {
+    if (activeVoices[v][key]) {
+      try {
+        activeVoices[v][key].stop();
+      } catch {}
+      delete activeVoices[v][key];
+    }
   }
 };
 
@@ -339,7 +350,7 @@ keyboardKeys.forEach((pressKey) => {
   pressKey.addEventListener("mousedown", (event) => {
     let keyName = event.target.getAttribute("key");
     if (noteMap[currentVowel][keyName]) {
-      playAudio(noteMap[currentVowel][keyName]);
+      playAudio(keyName);
       console.log(keyName);
     }
   });
@@ -352,7 +363,7 @@ keyboardKeys.forEach((pressKey) => {
   pressKey.addEventListener("mouseup", (event) => {
     let keyName = event.target.getAttribute("key");
     if (noteMap[currentVowel][keyName]) {
-      stopAudio(noteMap[currentVowel][keyName]);
+      stopAudio(keyName);
     }
   });
 });
@@ -363,14 +374,10 @@ keyboardKeys.forEach((pressKey) => {
  */
 document.addEventListener("keydown", (e) => {
   if (noteMap[currentVowel][e.key]) {
-    playAudio(noteMap[currentVowel][e.key]);
+    playAudio(e.key);
     console.log(e.key);
-  }
-});
-
-document.addEventListener("keydown", (k) => {
-  if (vowelMap[k.key]) {
-    updateVowel([k.key]);
+  } else if (vowelMap[e.key]) {
+    updateVowel([e.key]);
   }
 });
 
@@ -380,8 +387,9 @@ document.addEventListener("keydown", (k) => {
  */
 document.addEventListener("keyup", (e) => {
   if (noteMap[currentVowel][e.key]) {
-    stopAudio(noteMap[currentVowel][e.key]);
+    stopAudio(e.key);
   }
 });
 
 document.getElementById("gain").addEventListener("input", updateGain);
+preloadBuffers();
